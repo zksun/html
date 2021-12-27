@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Contract &mdash; rangers_protocol  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Network Details" href="network.html" />
+    <link rel="prev" title="NFT Protocol" href="nft-protocol.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> rangers_protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">users' files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#id1">Proposal Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#proposal-process">Proposal process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-proposal-node">how to apply to become a proposal node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-nodes">Verification Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-process">Verification process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-verification-node">How to apply to become a verification node?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">separate sections</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="account-system.html">Account System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block.html">Block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nft-protocol.html">NFT Protocol</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Smart Contract</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#smart-contract-deployment">Smart Contract Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smart-contract-interaction">Smart Contract Interaction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-socket-interface-call-user-manual.html">websocket Interface User Manual</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rangers_protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Smart Contract</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/constract.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="smart-contract">
+<h1>Smart Contract<a class="headerlink" href="#smart-contract" title="Permalink to this headline"></a></h1>
+<div class="section" id="smart-contract-deployment">
+<h2>Smart Contract Deployment<a class="headerlink" href="#smart-contract-deployment" title="Permalink to this headline"></a></h2>
+<p>The developer needs to deploy the contract to Rangers Protocol to allow users to interact with it.</p>
+<p>Before deploying a contract, we need to prepare:</p>
+<ul class="simple">
+<li><p>The compiled binary code of the contract, obtained through contract compilation</p></li>
+<li><p>Transaction fee</p></li>
+</ul>
+<p>Simply put, we deploy the contract by sending Rangers Protocol transactions. We can use the following tools:</p>
+<ul>
+<li><p>remix</p>
+<blockquote>
+<div><p>Refer to <a class="reference external" href="https://remix-ide.readthedocs.io/en/latest/#">remix documents</a></p>
+<p>To deploy to Rangers Protocol, you need to configure the network information, and the specific path is as follows:</p>
+<blockquote>
+<div><p>deploy&amp;run transactions-&gt;injected web3-&gt;activate metamask-&gt;configure metamask,</p>
+<p>For MetaMask information, refer to: <a class="reference internal" href="network.html#network"><span class="std std-ref">network configuration metamask wallet configuration</span></a></p>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><dl class="simple">
+<dt>truffle</dt><dd><p>Refer to <a class="reference external" href="https://learnblockchain.cn/docs/truffle">truffle documents</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To deploy to Rangers Protocol, you need to configure the corresponding message in truffle-config.js</p>
+</div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">rangerstestnet</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">provider</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span>
+      <span class="ow">new</span> <span class="nx">HDWalletProvider</span><span class="p">(</span>
+          <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;mnemonic&#39;</span><span class="p">),</span>
+          <span class="sb">`https://testnet.rangersprotocol.com/api/jsonrpc`</span><span class="p">,</span>
+      <span class="p">),</span>
+      <span class="nx">network_id</span><span class="o">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+      <span class="nx">gasPrice</span><span class="o">:</span> <span class="mf">1000000000</span><span class="p">,</span>
+      <span class="nx">timeoutBlocks</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="smart-contract-interaction">
+<h2>Smart Contract Interaction<a class="headerlink" href="#smart-contract-interaction" title="Permalink to this headline"></a></h2>
+<p>Rangers Protocol uses indigenous JS SDK to interact with the contract, please refer to <a class="reference external" href="https://learnblockchain.cn/docs/web3.js/index.html">Web3 document</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">Truffle</span> <span class="pre">contract</span> <span class="pre">example</span> <span class="pre">is</span> <span class="pre">as</span> <span class="pre">follows:</span></code></p>
+<ul class="simple">
+<li><p>Solidity contract source code:</p></li>
+</ul>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.5.2</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Coin</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="k">public </span><span class="nv">val</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Set</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">val</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">set</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_val</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span>val<span class="w"> </span><span class="o">=</span><span class="w"> </span>_val<span class="p">;</span><span class="w"></span>
+<span class="w">        </span>emit<span class="w"> </span>Set<span class="p">(</span>_val<span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">get</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>val<span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>Interaction Contract Code Solidity:</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="o">*</span><span class="kr">as</span> <span class="nx">Web3</span> <span class="kr">from</span> <span class="s1">&#39;@rocketprotocolweb3/web3&#39;</span><span class="p">;</span>
+
+<span class="c1">//1 Make use of Ethereum provider to create Web3</span>
+<span class="kd">var</span> <span class="nx">web3</span> <span class="o">=</span>  <span class="ow">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Web</span><span class="p">(</span><span class="s1">&#39;ws://testnet.rangersprotocol.com/api/reader&#39;</span><span class="p">,</span> <span class="s1">&#39;ws://testnet.rangersprotocol.com/api/writer/walletSDKJS&#39;</span><span class="p">,</span> <span class="s1">&#39;ws://testnet-sub.rangersprotocol.com&#39;</span><span class="p">);</span>
+
+
+<span class="c1">//2 Smart contract&#39;s ABI, ABI is generated by Compiler</span>
+<span class="kd">var</span> <span class="nx">abi</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;constant&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;val&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;payable&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;stateMutability&quot;</span><span class="o">:</span> <span class="s2">&quot;view&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;function&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;constant&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;_val&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;set&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;payable&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;stateMutability&quot;</span><span class="o">:</span> <span class="s2">&quot;nonpayable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;function&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;constant&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;get&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;payable&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;stateMutability&quot;</span><span class="o">:</span> <span class="s2">&quot;view&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;function&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;anonymous&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;indexed&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;val&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Set&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;event&quot;</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="c1">//3 Obtain contract according to ABI</span>
+<span class="kd">var</span> <span class="nx">contract</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">,</span><span class="s1">&#39;0xc8b522331e8A2369e87Cb4be6bE7C74Be86f1AAB&#39;</span><span class="p">);</span>
+
+<span class="c1">//4 Truffle contract method</span>
+    <span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">get</span><span class="p">().</span><span class="nx">call</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
+<span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">send</span><span class="p">({</span><span class="kr">from</span><span class="o">:</span><span class="s1">&#39;0x51BF497D8B47C5754220be9256F0Cb9E2Cd688B8&#39;</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nft-protocol.html" class="btn btn-neutral float-left" title="NFT Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="network.html" class="btn btn-neutral float-right" title="Network Details" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, rangers_protocol technical.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

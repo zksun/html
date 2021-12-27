@@ -1,0 +1,51 @@
+
+.. _verification_node:
+
+---------------------------------------------
+
+===================
+Verification Nodes
+===================
+
+
+Obligations of Verification Nodes
+==================================
+
+The obligations of a Verification node include the following:
+ ::
+- Participate in the creation process of Verification group regularly
+- Validate the candidate block and provide the signature
+- Collect sufficient signatures within the group and restore the group generation signatures
+- To become a verification node, any registered users can apply by staking 400 RPG. There is no restriction on the application of the verification node, as long as the stake can enter the random pool and become the candidate verification node. The generation of Verification nodes still follows the VRF mechanism. RPG cannot be unlocked from stake to block generation allocation. It can only be unlocked within the specified time after node rewards allocation is completed. Each node can only stake once in each block allocation cycle.
+
+Verification Nodes Reward
+==========================
+
+The rewards for proposal nodes are as follows:
+ ::
+- After the block is generated, the verification group will receive 14% of the total block reward;
+- All nodes in the verification group will be rewarded according to the proportion of each node’s token stake ratio
+|
+    The calculation formula is as follows:
+
+    .. math::
+
+            Q_{Verification signature node} = \frac{The node’s stake amount}{Total stake amount of proposal node}\times RangerProtocol current block reward\times\frac{2}{7}
+
+=====================
+Verification process
+=====================
+
+- Verify the VRF value of the candidate block
+- Calculate the verification group based on the VRF value and verify whether the verification group is selected
+- Verify the priority weight of a candidate block. If a candidate block with a higher priority has been verified in this round of consensus, the block is not verified
+- Execute the packaged transaction in the candidate block and verify the merkleTree root hash after the transaction
+- Verify block generation rewards
+- Verify block hash
+
+
+============================================
+How to apply to become a verification node?
+============================================
+
+For details about how to apply to become a verification node, please refer to：:ref:`Specific process for applying to become a verification node <rangers_process_of_become_a_verification_node>`

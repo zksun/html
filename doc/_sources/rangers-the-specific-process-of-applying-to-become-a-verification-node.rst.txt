@@ -1,0 +1,201 @@
+
+==================================================
+Process of applying to become a verification node
+==================================================
+
+.. _rangers_process_of_become_a_verification_node:
+
+Node and network management
+==============================
+
+
+Lifecycle
+------------
+
+The lifecycle is divided into the following four phases：
+
+- ``Join the Rangers Protocol network as a node``
+- ``nodes increase their stakes``
+- ``nodes reduce stakes and quit``
+- ``Participate in mining and obtain income``
+
+
+Become a node
+--------------
+
+Run `RangersProtocol program <http://git.tuntunhz.com/tequila/rangers-binary>`_，Becomes a node.
+
+----------------------------------
+The node starts the command line
+----------------------------------
+
+The following is an example of command line：
+
+.. code-block:: javascript
+
+	> ./rangers_node miner --config $config_file --rpc --rpcport $rpc_port  --instance $instance_index --pprof $pprof_port  --env mainnet
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+- *config The configuration file name with a private key, for example:x1.ini*
+- *rpcport RPC service port number, for example:8101*
+- *instance Node storage file number used to generate a number of local log files, for example:1*
+- *pprof Performance monitoring port number, for example:9101*
+- *env specify the Node operating environment, for example:robin*
+
+-------------------------
+Node Configuration File
+-------------------------
+
+The node needs to configure the private key and other related information.
+
+The configuration file name is:x$instance_index.ini，$instance_index Is the following command line parameters
+
+For example: I would like to have a configuration file name as:x1.ini, then start command parameters:$instance_index for 1， $config_file for x1.ini
+
+The content of the configuration file is as follows:
+
+.. code-block:: javascript
+
+	[gx]
+	privateKey = 0x04ebb445bbc10c19555324b36fea23a04ec14ceebbca161059d3afa829581be42ed7548563bf62d650e8bbd5643df9e95f428f865beda532082b72084762b599e3f3670c7adfe2bd8125402d50c06d2b8a443d9a1eca0c3dc85355d1af4315a324
+
+---------------------------------------------------------------------------------------------------------------------------
+
+In particular, new users need to generate a series of account information such as private keys. Please refer to the appendix for specific methods [#f1]_
+
+------------------
+node application
+------------------
+
+Nodes apply to become consensus nodes by sending transactions.
+For information on trading, please refer to the appendix [#f2]_
+
+Examples of transaction information are as follows:
+
+.. code-block:: json
+
+	{
+		"source": "0x613b5c50c736ccd8da80300a42c135d21d86181f14b1e8fcc07f530aabb5e8df",
+		"type": 2,
+		"data": "{\"id\":\"ZCDkZ8d1FOCUcafYTgVSwTtelxkvUjwF05cNfuI79EM=\",\"publicKey\":\"BAoMS6ouC5J6Kx9vk7MXwyDUqjpbVMCoP1hywjFV3PFFX7AVp2mdTvhJHMTHp3DlgKsTYqDjr594TdJIXPybp8E=\",\"vrfPublicKey\":\"qKo5cMxxh3hT+I3Z1UM34407NuM2yQFIaW+4ywh2/Ls=\",\"stake\":100000,\"type\":1}",
+		"hash":"xxx",
+		"sign":"xxx"
+	}
+
+---------------------------------------------------------------------------------------------------
+
+``Field Explanation``
+``````````````````````
+
+- ``souce：`` The sender of the transaction is also the debit account for the stake. If the amount of tokens in the account is less than the staking amount, the application will fail.
+- ``type：`` Transaction type, fixed to 2.
+- ``data：``
+
+    * This field is a JSON string and contains the following properties:
+
+      * ``id：`` Base64 string for node address. If blank, it defaults as a source field.
+      * ``publicKey：`` The base64 string for the node's public key. If blank, the application fails.
+      * ``vrfPublicKey：`` node VRF public key base64 string. If blank, the application fails.
+      *  ``stake：`` The amount of staking tokens. There is the threshold value of token stake for the proposal and verification nodes. If not being satisfied, the application fails.
+      *  ``type：`` Node type. 0 indicates the verification node. 1 indicates the proposal node.
+
+---------------------------------------------------------------------------------------------------------
+
+.. warning::
+	   #.  Increased node stake will affect node reward.
+   	   #.  Increasing the stake of a verification node will lead to a new verification group.
+
+-------------------
+Increase the stake
+-------------------
+
+The node increases the stake by sending a transaction.
+For transaction information, please refer to the appendix [#f2]_
+
+Examples of transaction information are as follows:
+
+.. code-block:: json
+
+	{
+		"source": "0x613b5c50c736ccd8da80300a42c135d21d86181f14b1e8fcc07f530aabb5e8df",
+		"type": 5,
+		"data": "{\"id\":\"YTtcUMc2zNjagDAKQsE10h2GGB8Usej8wH9TCqu16N8=\",\"stake\":100000}",
+		"hash":"xxx",
+		"sign":"xxx"
+	}
+
+------------------------------------------------------------------------------------------------------------
+
+``Field Explanation``
+`````````````````````
+
+- ``source：`` The sender of the transaction is also the debit account for the stake. If the amount of tokens in the account is less than the staked amount, the application will fail.
+- ``type：`` Transaction type, fixed to 5
+- ``data：``
+
+    * This field is a JSON string and contains the following properties:
+
+	* ``id：`` Base64 string for node address. If blank, the source field defaults.
+	* ``stake：`` The amount of staking tokens being increased
+
+--------------------------------------------------------------------------------------------------------------
+
+.. warning::
+           #.  nodes increasing stake will affect node reward.
+           #.  Increasing the stake of a verification node will create a new verification group.
+
+
+-----------------
+Reduce the Stake
+-----------------
+
+The node increases the stake by sending a transaction.
+For transaction information, please refer to the appendix [#f2]_
+
+Examples of transaction information are as follows:
+
+.. code-block:: json
+
+	{
+		"source": "0x613b5c50c736ccd8da80300a42c135d21d86181f14b1e8fcc07f530aabb5e8df",
+		"type": 4,
+		"data": "100000",
+		"hash":"xxx",
+		"sign":"xxx"
+	}
+
+-------------------------------------------------------------------------------------------------------------
+
+``Field Explanation``
+`````````````````````
+
+- ``source：`` The sender of the transaction is also the node's address.
+- ``type：`` Transaction type, fixed to 4.
+- ``data：`` The amount of staked tokens to be refunded. If it is more than the staking amount, it will fail and keep the original stake amount.
+
+.. warning::
+	   #. node increasing stake will affect node reward。
+	   #. Increasing the stake of a verification node will create a new verification group.
+           #. The reduced stake shall be returned after a certain time, and the specific calculation rules are as follows:
+		a. Proposal nodes will be paid to the account after the settlement of the next two rewards. In particular, if the staking amount reduced by the node is less than the minimum staking amount, all stakes will be returned, and the node will quit.
+		b. The verification node decides when to receive based on the number of participating groups. For example, a verification node participates in three verification groups. The block heights of the three groups are 1000, 2000, and 2500.
+		   If the stake of this node is reduced, the stake can only participate in one group. Then the reduced stake will be accounted for in the next settlement period after block 2000.
+		   If there are only two groups, the reduced stake will be credited in the next settlement period after block 1000.
+                   If there are more than three groups, the following two rewards will be settled in the account.
+		   In particular, if the reduced stake is less than the minimum stake, all stakes will be credited in the next settlement period after block 2500. At this point, the verification node exits.
+
+
+---------------------------------------------------------------------------------------------------------------
+
+nodes Income
+-------------
+node income refers to the appendix [#f3]_
+
+.. rubric:: The appendix
+
+.. [#f1] `Tool generates private key and node application information <http://git.tuntunhz.com/tequila/rockettool/-/blob/master>`_
+.. [#f2] :ref:`About Transaction Agreement <rangers_ws_protocol>`
+.. [#f3] :ref:`Miner income from mining  <rangers_miner_income>`

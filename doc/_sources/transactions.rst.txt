@@ -1,0 +1,703 @@
+.. _transactions:
+
+=============
+Transactions
+=============
+
+.. _basic_block_data:
+
+Basic Block Data
+==================
+
+---------------
+Data Structure
+---------------
+
+``Block data is a string in JSON format. The example is as follows:``
+
+.. code-block:: json
+
+	{
+		"version": 0,
+		"height": 296,
+		"hash": "0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b",
+		"preHash": "0x2aac98a29c4056b21a8706eb8bd4930a41241a18f48b643dda47d1b78a4082a6",
+		"curTime": "2020-01-02 14:52:58.242826753 +0800 CST",
+		"preTime": "2020-01-02 14:52:57.934987745 +0800 CST",
+		"proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+		"groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+		"sigature": "0x0320f7802ecbc65d7c62939fcbea0634268cbacf44bfd77a86dafe3a98728a5800",
+		"prove": 17283397732691092871096760313952554645943601365583975013548689002354017373323124214663724178324402040682326895077436789287151388368085392783034682201514566181482353498064245114465939678388093431,
+		"totalQn": 891,
+		"qn": 4,
+		"txs": [],
+		"wrongTxs": [],
+		"txCount": 0,
+		"stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+		"txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"random": "0x2f2af609ac7d0c19f6dcea9faa9f7ad2013f08a595d379121d05587eebc952f001"
+	}
+
+-------------------------------------------------------------------------------------------------------------
+
+^^^^^^^^^^^^^^^^^^
+Field Explanation
+^^^^^^^^^^^^^^^^^^
+
+- ``version`` *Current chain version number*
+- ``height`` *The current block height*
+- ``hash`` *Current block hash value*
+- ``preHash`` *Previous hash value*
+- ``curTime`` *The timestamp of the current block*
+- ``preTime`` *The timestamp of the previous block*
+- ``proposer`` *The proposer ID of the current block*
+- ``goupId`` *Authentication group ID of the current block*
+- ``sigature`` *The verification group signature of the current block*
+- ``prove`` *VRF_Prove value of the current block*
+- ``random`` *The total amount of work for the current block*
+- ``totalQn`` *The total amount of work in the current chain*
+- ``qn`` *The workload of the current block*
+- ``txs`` *The hash list of transactions that the current block contains (including successful and failed transactions)*
+- ``txCount`` *The total transactions of the current block*
+- ``wrongTxs`` * Failed transaction hash list of the current block*
+- ``stateRoot`` *Current account status root hash*
+- ``txRoot`` *Transaction root hash of the current block*
+- ``receptRoot`` *Receipt root hash after the transaction of the current block*
+
+
+----------------------------------
+Obtain the current highest block
+----------------------------------
+
+^^^^^^^^^^^^
+Parameters
+^^^^^^^^^^^^
+1. ``method``  - Method Name
+2. ``params``  - Parameter - ``none``
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+	function getCurrentBlock(host, tr) {
+                    input = {
+                        "method": "Rangers_getCurrentBlock",
+                        "params": [],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+        }
+
+^^^^^
+Back
+^^^^^
+
+.. code-block:: json
+
+        {
+                "jsonrpc": "2.0",
+                "id": "1",
+                "result": {
+                        "message": "success",
+                        "status": 0,
+                        "data": {
+                                "version": 0,
+                                "height": 301,
+                                "hash": "0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd",
+                                "preHash": "0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee",
+                                "curTime": "2020-01-02 14:52:59.796903685 +0800 CST",
+                                "preTime": "2020-01-02 14:52:59.484916276 +0800 CST",
+                                "proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+                                "groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+                                "sigature": "0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01",
+                                "prove": 13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263,
+                                "totalQn": 903,
+                                "qn": 5,
+                                "txs": [],
+                                "wrongTxs": [],
+                                "txCount": 0,
+                                "stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+                                "txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "random": "0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701"
+                        }
+                }
+        }
+
+-----------------------------------------------------
+
+------------------------------
+Obtain block by block height
+------------------------------
+
+^^^^^^^^^^^^
+Parameters
+^^^^^^^^^^^^
+1. ``method``  - Method Name
+2. ``params``  - Parameter - ``number`` - Block Height
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    function getCurrentBlock(host, tr) {
+                    input = {
+                        "method": "Rangers_getBlockByHeight",
+                        "params": [10086],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+        }
+
+^^^^^
+Back
+^^^^^
+
+.. code-block:: json
+
+        {
+                "jsonrpc": "2.0",
+                "id": "1",
+                "result": {
+                        "message": "success",
+                        "status": 0,
+                        "data": {
+                                "version": 0,
+                                "height": 301,
+                                "hash": "0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd",
+                                "preHash": "0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee",
+                                "curTime": "2020-01-02 14:52:59.796903685 +0800 CST",
+                                "preTime": "2020-01-02 14:52:59.484916276 +0800 CST",
+                                "proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+                                "groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+                                "sigature": "0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01",
+                                "prove": 13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263,
+                                "totalQn": 903,
+                                "qn": 5,
+                                "txs": [],
+                                "wrongTxs": [],
+                                "txCount": 0,
+                                "stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+                                "txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "random": "0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701"
+                        }
+                }
+        }
+
+-----------------------------------------------------
+
+----------------------------------------
+Obtain multiple blocks by block height
+----------------------------------------
+
+^^^^^^^^^^^
+Parameters
+^^^^^^^^^^^
+1. ``method``  - Method Name
+2. ``params``  - Parameter: ``[Number,...]`` - Multiple Block Heights
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    function getCurrentBlock(host, tr) {
+                    input = {
+                        "method": "Rangers_getBlocks",
+                        "params": [10000,10086],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+        }
+
+^^^^^^^^
+return
+^^^^^^^^
+
+.. code-block:: json
+
+        {
+                "jsonrpc": "2.0",
+                "id": "1",
+                "result": {
+                        "message": "success",
+                        "status": 0,
+                        "data": {
+                                "version": 0,
+                                "height": 301,
+                                "hash": "0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd",
+                                "preHash": "0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee",
+                                "curTime": "2020-01-02 14:52:59.796903685 +0800 CST",
+                                "preTime": "2020-01-02 14:52:59.484916276 +0800 CST",
+                                "proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+                                "groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+                                "sigature": "0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01",
+                                "prove": 13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263,
+                                "totalQn": 903,
+                                "qn": 5,
+                                "txs": [],
+                                "wrongTxs": [],
+                                "txCount": 0,
+                                "stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+                                "txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "random": "0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701"
+                        }
+                }
+        }
+
+-----------------------------------------------------
+
+
+------------------------------
+Obtain blocks by block hash
+------------------------------
+
+^^^^^^^^^^^
+Parameters
+^^^^^^^^^^^
+1. ``method``  - Method Name
+2. ``params``  - Parameter - ``String`` - Block Hash
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    function getCurrentBlock(host, tr) {
+                    input = {
+                        "method": "Rangers_getBlockByHash",
+                        "params": ["0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b"],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+        }
+
+^^^^^^
+Back
+^^^^^^
+
+.. code-block:: json
+
+        {
+                "jsonrpc": "2.0",
+                "id": "1",
+                "result": {
+                        "message": "success",
+                        "status": 0,
+                        "data": {
+                                "version": 0,
+                                "height": 301,
+                                "hash": "0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b",
+                                "preHash": "0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee",
+                                "curTime": "2020-01-02 14:52:59.796903685 +0800 CST",
+                                "preTime": "2020-01-02 14:52:59.484916276 +0800 CST",
+                                "proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+                                "groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+                                "sigature": "0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01",
+                                "prove": 13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263,
+                                "totalQn": 903,
+                                "qn": 5,
+                                "txs": [],
+                                "wrongTxs": [],
+                                "txCount": 0,
+                                "stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+                                "txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "random": "0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701"
+                        }
+                }
+        }
+
+-----------------------------------------------------
+
+Expand block data
+===================
+
+----------------
+Data Structure
+----------------
+
+
+``Compared with the basic block data, the extended block data only adds txDetail field, as shown in the following example:``
+
+.. warning:: txDetail field is json arrays containing transaction details. For the specific field meanings of transactions, see the following section of transactions
+
+.. code-block:: json
+
+	{
+		"version": 0,
+		"height": 214,
+		"hash": "0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6",
+		"preHash": "0xcac616a9107da89ba974326e99b0e07829dc56b28da86a3dbcbe394c42cb1b2b",
+		"curTime": "2020-01-02 15:46:19.001935657 +0800 CST",
+		"preTime": "2020-01-02 15:46:18.689964019 +0800 CST",
+		"proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+		"groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+		"sigature": "0x152d45537f5b90b74fca2974da93854612c9666de9b1dc4657ce1a3ed10084a501",
+		"prove": 1.6557028963247879e+193,
+		"totalQn": 650,
+		"qn": 4,
+		"txs": [],
+		"wrongTxs": [],
+		"txCount": 0,
+		"stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+		"txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"random": "0x19007a17ebfa04217e9653295c794add3f7b58f08010496f3250f099faed49c600",
+		"txDetails": []
+	}
+
+----------------------------------------------------------------------------------------------------------
+
+-----------------------------------
+Obtain extended block information
+-----------------------------------
+
+``Using the current http POST method to access to Rangers Protocol node can get extended block information``
+
+.. warning:: For extended block data, data can be accessed according to block hash, which is filled in the block params.
+
+^^^^^^^^^^^
+Parameter
+^^^^^^^^^^^
+1. ``method``  - Method Name
+2. ``params``  - Parameter - ``String`` - Block Hash
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    function getBlockDetail(host, tr) {
+                    input = {
+                        "method": "Rangers_blockDetail",
+                        "params": ["0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6"],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+        }
+
+^^^^^
+Back
+^^^^^
+
+.. code-block:: json
+
+        {
+                "jsonrpc": "2.0",
+                "id": "1",
+                "result": {
+                        "message": "success",
+                        "status": 0,
+                        "data": {
+                                "version": 0,
+                                "height": 301,
+                                "hash": "0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6",
+                                "preHash": "0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee",
+                                "curTime": "2020-01-02 14:52:59.796903685 +0800 CST",
+                                "preTime": "2020-01-02 14:52:59.484916276 +0800 CST",
+                                "proposer": "0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a",
+                                "groupId": "0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a",
+                                "sigature": "0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01",
+                                "prove": 13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263,
+                                "totalQn": 903,
+                                "qn": 5,
+                                "txs": [],
+                                "wrongTxs": [],
+                                "txCount": 0,
+                                "stateRoot": "0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd",
+                                "txRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "receiptRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "random": "0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701",
+                                "txDetails": [{
+                                                    "source": "0x613b5c50c736ccd8da80300a42c135d21d86181f",
+                                                    "target": "0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54",
+                                                    "type": 100,
+                                                    "signature": "0x7bf5ac3b0b1b7cda928b8552e001d358b3b0216833fb8cc3fc7ce9d9200bee4f50c3c42520de43385bf102507a7e137387190d0dd2a75f44a5f423af8374b2f401",
+                                                    "subTransactions": "[{\"address\":\"TransferFT\",\"Assets\":{\"gameId\":\"0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54\",\"supply\":\"2.28E-5\",\"symbol\":\"official-ETH.ETH\",\"target\":\"0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\"}}]",
+                                                    "hash": "0xec2205bf2944ac7e7494dd5869dc5f5c30ecbb856dadc65ec126e02e68026d00",
+                                                    "data": "{\"address\":\"0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\",\"method\":\"transferETH\",\"value\":\"0.0000228\"}",
+                                                    "extraData": ""
+                                            }]
+                        }
+                }
+        }
+
+--------------------------------------------------------------------------------------------------------------
+
+
+Transaction Data
+==================
+
+-----------------
+Data Structure
+-----------------
+
+``Transaction data is a string in JSON format, the example is as shown below:``
+
+.. code-block:: json
+
+        {
+                "source": "0x613b5c50c736ccd8da80300a42c135d21d86181f",
+                "target": "0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54",
+                "type": 100,
+                "signature": "0x7bf5ac3b0b1b7cda928b8552e001d358b3b0216833fb8cc3fc7ce9d9200bee4f50c3c42520de43385bf102507a7e137387190d0dd2a75f44a5f423af8374b2f401",
+                "hash": "0xec2205bf2944ac7e7494dd5869dc5f5c30ecbb856dadc65ec126e02e68026d00",
+                "data": "{\"address\":\"0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\",\"method\":\"transferETH\",\"value\":\"0.0000228\"}",
+                "extraData": ""
+        }
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+^^^^^^^^^^^^^^^^^^
+Field Explanation
+^^^^^^^^^^^^^^^^^^
+
+- ``source`` *Address of the transaction sender*
+- ``target`` The address of the transaction object, usually appId(STM’s ID)
+- ``type`` Transaction Type
+- ``signature`` Transaction Signature
+- ``hash`` *Transaction Hash*
+- ``data`` Transaction Transfer Information
+- ``extrData`` Transfer Transaction Extended Information
+
+.. warning:: rangers protocol supports multiple multi-currency transfer transactions. In this case, target field is blank and extraData field is transfer details. Multiple multi-currency transfer transactions can be performed simultaneously.
+
+-----------------------------------
+Access to transaction information
+-----------------------------------
+
+^^^^^^^^^^^^^^^^^^
+Transaction type
+^^^^^^^^^^^^^^^^^^
+
+- ``100`` Call transfer
+
+``Using the current http POST method to access to Rangers Protocol node can get extended block information``
+
+.. note:: The following params is the hash value of the transaction, and the following POST parameter can get the transaction hash’s transaction information in corresponding to the params
+
+^^^^^^^^^^^
+Parameter
+^^^^^^^^^^^
+
+1. ``method``  - Method name
+2. ``params``  - Parameter - `string` - Transactions Hash
+3. ``jsonrpc`` - JSON Agreement
+4. ``id``      - RPC Message Sequence Number
+
+
+^^^^^^^^^^^^^^^^^^
+Call the example
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+     function getTransactionInfo(host, tr) {
+                    input = {
+                        "method": "Rangers_getTransaction",
+                        "params": ["0x8b34b4325c283fde10c8db5d90d605c99042b935813ab6bb353186a4689dcf33"],
+                        "jsonrpc": "2.0",
+                        "id": "1"
+                    };
+
+                     $.ajax({
+                                type: 'POST',
+                                url: host,
+                                beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            data: JSON.stringify(input),
+                            success: function (rdata) {
+                                      if (rdata.result !== undefined){
+                                      d = rdata.result.data
+                                  }
+                            },
+                            error: function () {
+                                        tps = tr.children("td[name='tps']")
+                                        txs = tr.children("td[name='txs']")
+                                        h = tr.children("td[name='block_height']")
+                                        tps.text("Failed to obtain block information. Procedure")
+                                        txs.text("Failed to obtain block information. Procedure")
+                                        h.text("Failed to obtain block information. Procedure")
+                             }
+                     });
+    }
+
+^^^^^
+Back
+^^^^^
+
+.. code-block:: json
+
+
+    {
+            "jsonrpc": "1.0",
+            "id": 0,
+            "result": {
+                "message": "",
+                "status": 0,
+                "data": {
+                    "receipt": {
+                        "status": 1,
+                        "cumulativeGasUsed": 1,
+                        "height": 3090892,
+                        "transactionHash": "0xf1ecb214afa582ee35766b4d1eb4cb5226c3cccb2c2373ca03ce18a85765d2b6",
+                        "contractAddress": "0x0000000000000000000000000000000000000000",
+                        "logs": null,
+                        "blockHash": "0x924fb08d47c255196469fc23545bfb91e7f33d937c214ec1575b6fa796fd4804"
+                    },
+                    "tx": {
+                        "source": "0xeb5f5a5b3e9288969440042ef5045bb65b457b20",
+                        "target": "",
+                        "type": 100,
+                        "signature": "0x9dbf1ce6834dc3dc545a3c0202e038454243f5f1c3a5f7ed6edbcae1b65e892e222e5fbbb5bdacd91d94267da58a38270f80982cf7c1ab70b1181c42904658c21b",
+                        "subTransactions": "[]",
+                        "hash": "0xf1ecb214afa582ee35766b4d1eb4cb5226c3cccb2c2373ca03ce18a85765d2b6",
+                        "data": "",
+                        "extraData": "{\"0x6a8e9ee50f3ac628913af7ace2f5446e9b4b0794\":{\"ft\":{\"SYSTEM-ETH.USDT\":\"0.00001\"}}}"
+                    }
+                }
+            }
+    }
+
+
+
+

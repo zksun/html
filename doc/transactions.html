@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions &mdash; rangers_protocol  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Block" href="block.html" />
+    <link rel="prev" title="Account System" href="account-system.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> rangers_protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">users' files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#id1">Proposal Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#proposal-process">Proposal process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-proposal-node">how to apply to become a proposal node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-nodes">Verification Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-process">Verification process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-verification-node">How to apply to become a verification node?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">separate sections</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="account-system.html">Account System</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Transaction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-block-data">Basic Block Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-structure">Data Structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#field-explanation">Field Explanation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-the-current-highest-block">Obtain the current highest block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#call-the-example">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#back">Back</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-block-by-block-height">Obtain block by block height</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Back</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-multiple-blocks-by-block-height">Obtain multiple blocks by block height</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#return">return</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-blocks-by-block-hash">Obtain blocks by block hash</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Back</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#expand-block-data">Expand block data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-extended-block-information">Obtain extended block information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameter">Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Back</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction-data">Transaction Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Data Structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Field Explanation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#access-to-transaction-information">Access to transaction information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#transaction-type">Transaction type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Call the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Back</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="block.html">Block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nft-protocol.html">NFT Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constract.html">Smart Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-socket-interface-call-user-manual.html">websocket Interface User Manual</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rangers_protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Transactions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/transactions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="transactions">
+<span id="id1"></span><h1>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline"></a></h1>
+<div class="section" id="basic-block-data">
+<span id="id2"></span><h2>Basic Block Data<a class="headerlink" href="#basic-block-data" title="Permalink to this headline"></a></h2>
+<div class="section" id="data-structure">
+<h3>Data Structure<a class="headerlink" href="#data-structure" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Block</span> <span class="pre">data</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">string</span> <span class="pre">in</span> <span class="pre">JSON</span> <span class="pre">format.</span> <span class="pre">The</span> <span class="pre">example</span> <span class="pre">is</span> <span class="pre">as</span> <span class="pre">follows:</span></code></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">296</span><span class="p">,</span>
+        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x2aac98a29c4056b21a8706eb8bd4930a41241a18f48b643dda47d1b78a4082a6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:58.242826753 +0800 CST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:57.934987745 +0800 CST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0320f7802ecbc65d7c62939fcbea0634268cbacf44bfd77a86dafe3a98728a5800&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">17283397732691092871096760313952554645943601365583975013548689002354017373323124214663724178324402040682326895077436789287151388368085392783034682201514566181482353498064245114465939678388093431</span><span class="p">,</span>
+        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">891</span><span class="p">,</span>
+        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x2f2af609ac7d0c19f6dcea9faa9f7ad2013f08a595d379121d05587eebc952f001&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="field-explanation">
+<h4>Field Explanation<a class="headerlink" href="#field-explanation" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code> <em>Current chain version number</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">height</span></code> <em>The current block height</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hash</span></code> <em>Current block hash value</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preHash</span></code> <em>Previous hash value</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">curTime</span></code> <em>The timestamp of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preTime</span></code> <em>The timestamp of the previous block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proposer</span></code> <em>The proposer ID of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">goupId</span></code> <em>Authentication group ID of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigature</span></code> <em>The verification group signature of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prove</span></code> <em>VRF_Prove value of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random</span></code> <em>The total amount of work for the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">totalQn</span></code> <em>The total amount of work in the current chain</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qn</span></code> <em>The workload of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">txs</span></code> <em>The hash list of transactions that the current block contains (including successful and failed transactions)</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">txCount</span></code> <em>The total transactions of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrongTxs</span></code> * Failed transaction hash list of the current block*</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stateRoot</span></code> <em>Current account status root hash</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">txRoot</span></code> <em>Transaction root hash of the current block</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">receptRoot</span></code> <em>Receipt root hash after the transaction of the current block</em></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="obtain-the-current-highest-block">
+<h3>Obtain the current highest block<a class="headerlink" href="#obtain-the-current-highest-block" title="Permalink to this headline"></a></h3>
+<div class="section" id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter - <code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="call-the-example">
+<h4>Call the example<a class="headerlink" href="#call-the-example" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCurrentBlock</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_getCurrentBlock&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+            <span class="p">};</span>
+
+             <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                        <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                        <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                    <span class="p">},</span>
+                    <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                              <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                              <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                          <span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                     <span class="p">}</span>
+             <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="back">
+<h4>Back<a class="headerlink" href="#back" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+                        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.796903685 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.484916276 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263</span><span class="p">,</span>
+                        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+                        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701&quot;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="obtain-block-by-block-height">
+<h3>Obtain block by block height<a class="headerlink" href="#obtain-block-by-block-height" title="Permalink to this headline"></a></h3>
+<div class="section" id="id3">
+<h4>Parameters<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter - <code class="docutils literal notranslate"><span class="pre">number</span></code> - Block Height</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h4>Call the example<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCurrentBlock</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_getBlockByHeight&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mf">10086</span><span class="p">],</span>
+                    <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">};</span>
+
+                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                            <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                        <span class="p">},</span>
+                        <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                                  <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                                  <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                              <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                    <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                         <span class="p">}</span>
+                 <span class="p">});</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>Back<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+                        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.796903685 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.484916276 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263</span><span class="p">,</span>
+                        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+                        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701&quot;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="obtain-multiple-blocks-by-block-height">
+<h3>Obtain multiple blocks by block height<a class="headerlink" href="#obtain-multiple-blocks-by-block-height" title="Permalink to this headline"></a></h3>
+<div class="section" id="id6">
+<h4>Parameters<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter: <code class="docutils literal notranslate"><span class="pre">[Number,...]</span></code> - Multiple Block Heights</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="id7">
+<h4>Call the example<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCurrentBlock</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_getBlocks&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mf">10000</span><span class="p">,</span><span class="mf">10086</span><span class="p">],</span>
+                    <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">};</span>
+
+                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                            <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                        <span class="p">},</span>
+                        <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                                  <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                                  <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                              <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                    <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                         <span class="p">}</span>
+                 <span class="p">});</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="return">
+<h4>return<a class="headerlink" href="#return" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+                        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xc834c13d06f231e682cf4c82f927e4c259104b1ac5ba4bce8211a0e8b00f8bcd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.796903685 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.484916276 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263</span><span class="p">,</span>
+                        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+                        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701&quot;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="obtain-blocks-by-block-hash">
+<h3>Obtain blocks by block hash<a class="headerlink" href="#obtain-blocks-by-block-hash" title="Permalink to this headline"></a></h3>
+<div class="section" id="id8">
+<h4>Parameters<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter - <code class="docutils literal notranslate"><span class="pre">String</span></code> - Block Hash</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h4>Call the example<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCurrentBlock</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_getBlockByHash&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">};</span>
+
+                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                            <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                        <span class="p">},</span>
+                        <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                                  <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                                  <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                              <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                    <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                         <span class="p">}</span>
+                 <span class="p">});</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h4>Back<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+                        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x9eec14a78fad6f924eaa6eb4a022fad3d154577858d509613bdf397a32be9a5b&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.796903685 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.484916276 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263</span><span class="p">,</span>
+                        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+                        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701&quot;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="expand-block-data">
+<h2>Expand block data<a class="headerlink" href="#expand-block-data" title="Permalink to this headline"></a></h2>
+<div class="section" id="id11">
+<h3>Data Structure<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Compared</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">basic</span> <span class="pre">block</span> <span class="pre">data,</span> <span class="pre">the</span> <span class="pre">extended</span> <span class="pre">block</span> <span class="pre">data</span> <span class="pre">only</span> <span class="pre">adds</span> <span class="pre">txDetail</span> <span class="pre">field,</span> <span class="pre">as</span> <span class="pre">shown</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">following</span> <span class="pre">example:</span></code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>txDetail field is json arrays containing transaction details. For the specific field meanings of transactions, see the following section of transactions</p>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">214</span><span class="p">,</span>
+        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xcac616a9107da89ba974326e99b0e07829dc56b28da86a3dbcbe394c42cb1b2b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 15:46:19.001935657 +0800 CST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 15:46:18.689964019 +0800 CST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x152d45537f5b90b74fca2974da93854612c9666de9b1dc4657ce1a3ed10084a501&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mf">1.6557028963247879e+193</span><span class="p">,</span>
+        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">650</span><span class="p">,</span>
+        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x19007a17ebfa04217e9653295c794add3f7b58f08010496f3250f099faed49c600&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;txDetails&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="obtain-extended-block-information">
+<h3>Obtain extended block information<a class="headerlink" href="#obtain-extended-block-information" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">http</span> <span class="pre">POST</span> <span class="pre">method</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">to</span> <span class="pre">Rangers</span> <span class="pre">Protocol</span> <span class="pre">node</span> <span class="pre">can</span> <span class="pre">get</span> <span class="pre">extended</span> <span class="pre">block</span> <span class="pre">information</span></code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For extended block data, data can be accessed according to block hash, which is filled in the block params.</p>
+</div>
+<div class="section" id="parameter">
+<h4>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter - <code class="docutils literal notranslate"><span class="pre">String</span></code> - Block Hash</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="id12">
+<h4>Call the example<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getBlockDetail</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_blockDetail&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">};</span>
+
+                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                            <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                        <span class="p">},</span>
+                        <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                                  <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                                  <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                              <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                    <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                         <span class="p">}</span>
+                 <span class="p">});</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h4>Back<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+                        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x1bf40449985bbb2c661e75db24dc1a73eb7f758ae245b5884ee42cc6aea2fad6&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7c01fd69cccb693c77062461ec7e860feb6ed9644d1689156aa2349b82aa51ee&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;curTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.796903685 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;preTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-02 14:52:59.484916276 +0800 CST&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;0xb09cbdf6b95884a76a4e255e9baba4f3a606083bb035d537b8aaa41cb7929f7a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;groupId&quot;</span><span class="p">:</span> <span class="s2">&quot;0xa82a5aedb1e1f6941c355ad7f68311f873160607bda1539615d52dc3fefa020a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;sigature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x235b32da14f143cef9d03249a9d5277a42b67a5fda552004d29016f32d23e40b01&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;prove&quot;</span><span class="p">:</span> <span class="mi">13623963720938865865831639022235176707006857346800357704236133660240502735851446790681115773407148233963878808235950761297162232307850843604181989307259682930471738313980284641429320062164289263</span><span class="p">,</span>
+                        <span class="nt">&quot;totalQn&quot;</span><span class="p">:</span> <span class="mi">903</span><span class="p">,</span>
+                        <span class="nt">&quot;qn&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="nt">&quot;txs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;wrongTxs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="nt">&quot;txCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nt">&quot;stateRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0d668f3bb6b00d0db0f857fc79172c0cd0d96a409b2c53e608c1c975f8b97bbd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;receiptRoot&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;random&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0138932e27a15e303194f8b60f6257baf12ace6322963ed81f68bdfc264a8d7701&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;txDetails&quot;</span><span class="p">:</span> <span class="p">[{</span>
+                                            <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;0x613b5c50c736ccd8da80300a42c135d21d86181f&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                                            <span class="nt">&quot;signature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7bf5ac3b0b1b7cda928b8552e001d358b3b0216833fb8cc3fc7ce9d9200bee4f50c3c42520de43385bf102507a7e137387190d0dd2a75f44a5f423af8374b2f401&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;subTransactions&quot;</span><span class="p">:</span> <span class="s2">&quot;[{\&quot;address\&quot;:\&quot;TransferFT\&quot;,\&quot;Assets\&quot;:{\&quot;gameId\&quot;:\&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54\&quot;,\&quot;supply\&quot;:\&quot;2.28E-5\&quot;,\&quot;symbol\&quot;:\&quot;official-ETH.ETH\&quot;,\&quot;target\&quot;:\&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\&quot;}}]&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xec2205bf2944ac7e7494dd5869dc5f5c30ecbb856dadc65ec126e02e68026d00&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;address\&quot;:\&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\&quot;,\&quot;method\&quot;:\&quot;transferETH\&quot;,\&quot;value\&quot;:\&quot;0.0000228\&quot;}&quot;</span><span class="p">,</span>
+                                            <span class="nt">&quot;extraData&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                                    <span class="p">}]</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="transaction-data">
+<h2>Transaction Data<a class="headerlink" href="#transaction-data" title="Permalink to this headline"></a></h2>
+<div class="section" id="id14">
+<h3>Data Structure<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Transaction</span> <span class="pre">data</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">string</span> <span class="pre">in</span> <span class="pre">JSON</span> <span class="pre">format,</span> <span class="pre">the</span> <span class="pre">example</span> <span class="pre">is</span> <span class="pre">as</span> <span class="pre">shown</span> <span class="pre">below:</span></code></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;0x613b5c50c736ccd8da80300a42c135d21d86181f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nt">&quot;signature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x7bf5ac3b0b1b7cda928b8552e001d358b3b0216833fb8cc3fc7ce9d9200bee4f50c3c42520de43385bf102507a7e137387190d0dd2a75f44a5f423af8374b2f401&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xec2205bf2944ac7e7494dd5869dc5f5c30ecbb856dadc65ec126e02e68026d00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;address\&quot;:\&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d55\&quot;,\&quot;method\&quot;:\&quot;transferETH\&quot;,\&quot;value\&quot;:\&quot;0.0000228\&quot;}&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;extraData&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id15">
+<h4>Field Explanation<a class="headerlink" href="#id15" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code> <em>Address of the transaction sender</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code> The address of the transaction object, usually appId(STM’s ID)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> Transaction Type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">signature</span></code> Transaction Signature</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hash</span></code> <em>Transaction Hash</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> Transaction Transfer Information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extrData</span></code> Transfer Transaction Extended Information</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>rangers protocol supports multiple multi-currency transfer transactions. In this case, target field is blank and extraData field is transfer details. Multiple multi-currency transfer transactions can be performed simultaneously.</p>
+</div>
+</div>
+</div>
+<div class="section" id="access-to-transaction-information">
+<h3>Access to transaction information<a class="headerlink" href="#access-to-transaction-information" title="Permalink to this headline"></a></h3>
+<div class="section" id="transaction-type">
+<h4>Transaction type<a class="headerlink" href="#transaction-type" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">100</span></code> Call transfer</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">http</span> <span class="pre">POST</span> <span class="pre">method</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">to</span> <span class="pre">Rangers</span> <span class="pre">Protocol</span> <span class="pre">node</span> <span class="pre">can</span> <span class="pre">get</span> <span class="pre">extended</span> <span class="pre">block</span> <span class="pre">information</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following params is the hash value of the transaction, and the following POST parameter can get the transaction hash’s transaction information in corresponding to the params</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h4>Parameter<a class="headerlink" href="#id16" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>  - Method name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>  - Parameter - <cite>string</cite> - Transactions Hash</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsonrpc</span></code> - JSON Agreement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>      - RPC Message Sequence Number</p></li>
+</ol>
+</div>
+<div class="section" id="id17">
+<h4>Call the example<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span> <span class="kd">function</span> <span class="nx">getTransactionInfo</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="nx">tr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">input</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;Rangers_getTransaction&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;0x8b34b4325c283fde10c8db5d90d605c99042b935813ab6bb353186a4689dcf33&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;jsonrpc&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">};</span>
+
+                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="nx">host</span><span class="p">,</span>
+                            <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+                        <span class="p">},</span>
+                        <span class="nx">data</span><span class="o">:</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">input</span><span class="p">),</span>
+                        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">)</span> <span class="p">{</span>
+                                  <span class="k">if</span> <span class="p">(</span><span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">){</span>
+                                  <span class="nx">d</span> <span class="o">=</span> <span class="nx">rdata</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span>
+                              <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                                    <span class="nx">tps</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;tps&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;txs&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;td[name=&#39;block_height&#39;]&quot;</span><span class="p">)</span>
+                                    <span class="nx">tps</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">txs</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                                    <span class="nx">h</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Failed to obtain block information. Procedure&quot;</span><span class="p">)</span>
+                         <span class="p">}</span>
+                 <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h4>Back<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;receipt&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nt">&quot;cumulativeGasUsed&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">3090892</span><span class="p">,</span>
+                    <span class="nt">&quot;transactionHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xf1ecb214afa582ee35766b4d1eb4cb5226c3cccb2c2373ca03ce18a85765d2b6&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;contractAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;0x0000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;logs&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="nt">&quot;blockHash&quot;</span><span class="p">:</span> <span class="s2">&quot;0x924fb08d47c255196469fc23545bfb91e7f33d937c214ec1575b6fa796fd4804&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;tx&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;0xeb5f5a5b3e9288969440042ef5045bb65b457b20&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="nt">&quot;signature&quot;</span><span class="p">:</span> <span class="s2">&quot;0x9dbf1ce6834dc3dc545a3c0202e038454243f5f1c3a5f7ed6edbcae1b65e892e222e5fbbb5bdacd91d94267da58a38270f80982cf7c1ab70b1181c42904658c21b&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;subTransactions&quot;</span><span class="p">:</span> <span class="s2">&quot;[]&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0xf1ecb214afa582ee35766b4d1eb4cb5226c3cccb2c2373ca03ce18a85765d2b6&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;extraData&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;0x6a8e9ee50f3ac628913af7ace2f5446e9b4b0794\&quot;:{\&quot;ft\&quot;:{\&quot;SYSTEM-ETH.USDT\&quot;:\&quot;0.00001\&quot;}}}&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="account-system.html" class="btn btn-neutral float-left" title="Account System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="block.html" class="btn btn-neutral float-right" title="Block" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, rangers_protocol technical.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

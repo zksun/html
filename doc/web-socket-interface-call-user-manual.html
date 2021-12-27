@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rangers WebSocket User Manual &mdash; rangers_protocol  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Network Details" href="network.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> rangers_protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">users' files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#id1">Proposal Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#proposal-process">Proposal process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-proposal-node">how to apply to become a proposal node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-nodes">Verification Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-process">Verification process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-verification-node">How to apply to become a verification node?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">separate sections</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="account-system.html">Account System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block.html">Block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nft-protocol.html">NFT Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constract.html">Smart Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">websocket Interface User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#agreement">Agreement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ws-domain-name">ws domain name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-app-sends-data-in-json-format">The app sends data in JSON format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#back-in-json-format">Back in JSON format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transfer">transfer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#access-to-the-link">Access to the link</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#back">Back</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#back-to-data">Back to data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rangers_protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Rangers WebSocket User Manual</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/web-socket-interface-call-user-manual.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="rangers-websocket-user-manual">
+<span id="websocket-interface-user-manual"></span><h1>Rangers WebSocket User Manual<a class="headerlink" href="#rangers-websocket-user-manual" title="Permalink to this headline"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">app</span> <span class="pre">communicates</span> <span class="pre">with</span> <span class="pre">Rangers</span> <span class="pre">Protocol</span> <span class="pre">by</span> <span class="pre">adopting</span> <span class="pre">the</span> <span class="pre">method</span> <span class="pre">of</span> <span class="pre">WebSocket</span> <span class="pre">connection</span></code></p>
+<p>For a WebSocket usage example, please refer to: <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
+<div class="section" id="agreement">
+<span id="rangers-ws-protocol"></span><h2>Agreement<a class="headerlink" href="#agreement" title="Permalink to this headline"></a></h2>
+<div class="section" id="ws-domain-name">
+<h3>ws domain name<a class="headerlink" href="#ws-domain-name" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Please refer to <a class="reference internal" href="network.html#network"><span class="std std-ref">network part</span></a> - The following is referred to as ws_url</p></li>
+</ul>
+</div>
+<div class="section" id="the-app-sends-data-in-json-format">
+<h3>The app sends data in JSON format<a class="headerlink" href="#the-app-sends-data-in-json-format" title="Permalink to this headline"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;socketRequestId&quot;</span><span class="p">:</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="s2">&quot;0x123456&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="s2">&quot;0x324233&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="s2">&quot;14564634346&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="s2">&quot;0xdfafdgare&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sign&quot;</span><span class="p">:</span><span class="s2">&quot;0xdagfgniofahn&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;nonce&quot;</span><span class="p">:</span><span class="mi">15</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Field</span> <span class="pre">Explanation</span> <span class="pre">:</span></code></p>
+<ul class="simple">
+<li><p><em>socketRequestId</em> Message ID, designated by the App, the return of the user identified message</p></li>
+<li><p><em>source</em> RangersProtocol account address</p></li>
+<li><p><em>target</em> Account address or contract address</p></li>
+<li><p><em>type</em> Message type (required)</p></li>
+<li><p><em>time</em> Timestamp (required)</p></li>
+<li><p><em>data</em> Message data</p></li>
+<li><p><em>hash</em> Message hash(required)</p></li>
+<li><p><em>sign</em> Signature of the message (required)</p></li>
+<li><p><em>nonce</em> Used to mark App messages, each message nonce must be added by one (mandatory)</p></li>
+</ul>
+</div>
+<div class="section" id="back-in-json-format">
+<h3>Back in JSON format<a class="headerlink" href="#back-in-json-format" title="Permalink to this headline"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;abcd&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Field</span> <span class="pre">Explanation</span> <span class="pre">:</span></code></p>
+<ul class="simple">
+<li><p><em>id</em> SocketRequestId that sends the message</p></li>
+<li><p><em>status</em> Back to status code 0 for failure and 1 for success</p></li>
+<li><p><em>version</em> Version number Current reserved data</p></li>
+<li><p><em>data</em> Back to data</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="transfer">
+<h2>transfer<a class="headerlink" href="#transfer" title="Permalink to this headline"></a></h2>
+<div class="section" id="access-to-the-link">
+<h3>Access to the link<a class="headerlink" href="#access-to-the-link" title="Permalink to this headline"></a></h3>
+<p>ws://ws_url/api/writer/rangers</p>
+</div>
+<div class="section" id="parameters">
+<h3>parameters<a class="headerlink" href="#parameters" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> - number - Type 100</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">extraData</span></code> - json - Transfer Information (optional)</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">coin</span></code> json,Currency of transfer as follows:{“ETH”:”3.26”,”NEO”:”565”}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ft</span></code> json,The ft of transfer is as follows:{“ftId1”:”2.56”,”ftId2”:”5.99”}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nft</span></code> json,the NFT of the transfer is as follows:[{“setId”:setId, “id”:id}]</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="back">
+<h3>Back<a class="headerlink" href="#back" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> - string - Transfer Execution Result</p></li>
+</ul>
+</div>
+<div class="section" id="example">
+<h3>example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="s2">&quot;0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="s2">&quot;0xf677e4051eeff7a60598cc6419b982cdeef60b01&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="s2">&quot;1556076659050692000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;extraData&quot;</span><span class="p">:{</span><span class="nt">&quot;coin&quot;</span><span class="p">:{</span><span class="nt">&quot;ETH&quot;</span><span class="p">:</span><span class="s2">&quot;3.26&quot;</span><span class="p">,</span><span class="nt">&quot;NEO&quot;</span><span class="p">:</span><span class="s2">&quot;565&quot;</span><span class="p">},</span><span class="nt">&quot;ft&quot;</span><span class="p">:{</span><span class="nt">&quot;game1-ftId1&quot;</span><span class="p">:</span><span class="s2">&quot;2.56&quot;</span><span class="p">,</span><span class="nt">&quot;game2-ftId2&quot;</span><span class="p">:</span><span class="s2">&quot;5.99&quot;</span><span class="p">},</span><span class="nt">&quot;nft&quot;</span><span class="p">:[{</span><span class="nt">&quot;setId&quot;</span><span class="p">:</span><span class="s2">&quot;suit1&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;xizhuang&quot;</span><span class="p">},{</span><span class="nt">&quot;setId&quot;</span><span class="p">:</span><span class="s2">&quot;gun&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;rifle&quot;</span><span class="p">},]},</span>
+    <span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="s2">&quot;0x4689e73a1f051f70775a6d58cfacca78680f6421b6cf0dcacba6ab203a720fc1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;socketRequestId&quot;</span><span class="p">:</span><span class="s2">&quot;12140&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="back-to-data">
+<h4>Back to data<a class="headerlink" href="#back-to-data" title="Permalink to this headline"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;12137&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;data&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;coin&quot;</span><span class="p">:{</span><span class="nt">&quot;ETH&quot;</span><span class="p">:</span><span class="s2">&quot;0.3661&quot;</span><span class="p">,</span><span class="nt">&quot;NEO&quot;</span><span class="p">:</span><span class="s2">&quot;9.67&quot;</span><span class="p">},</span>
+        <span class="nt">&quot;ft&quot;</span><span class="p">:{</span><span class="nt">&quot;game1-ftId1&quot;</span><span class="p">:</span><span class="s2">&quot;1.23&quot;</span><span class="p">,</span><span class="nt">&quot;game2-ftId2&quot;</span><span class="p">:</span><span class="s2">&quot;793.2&quot;</span><span class="p">},</span>
+        <span class="nt">&quot;nft&quot;</span><span class="p">:[{</span><span class="nt">&quot;setId&quot;</span><span class="p">:</span><span class="s2">&quot;suit1&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;xizhuang&quot;</span><span class="p">},{</span><span class="nt">&quot;setId&quot;</span><span class="p">:</span><span class="s2">&quot;gun&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;rifle&quot;</span><span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p class="rubric">The appendix</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference internal" href="web-socket-example.html#websocket-example"><span class="std std-ref">websocket simple example</span></a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="network.html" class="btn btn-neutral float-left" title="Network Details" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, rangers_protocol technical.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

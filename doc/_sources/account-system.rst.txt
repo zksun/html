@@ -1,0 +1,50 @@
+===============
+Account System
+===============
+
+Brief Introduction of Rangers Protocol Account System
+
+Private Key, Public Key, Address
+
+- :ref:`For the above concepts, please take Glossary section as reference <glossary-key&address>`
+
+Account data structure
+========================
+
+Each Rangers Protocol user can set up an account, which includes:
+
+- Owned RPG or other tokens based on ERC20 standard
+
+- ERC20 standard tokens on public blockchains of Ethereum/BSC
+
+- Owned NFT
+
+- Standard NFT such as ERC721 of other public blockchains such as Ethereum/BSC
+
+Rangers Protocol has two types of accounts
+
+- Ordinary account, controlled by users’ private keys.
+
+- Contract account, controlled by smart contract code.
+
+Rangers Protocol accounts include the following fields：
+
+- Counter nonce
+
+- RPG balance of the account
+
+- FT balance of the account
+
+- NFT information of the account
+
+- Contract code (if any)
+  Generally speaking, only the contract account has the code, which stores codeHash (the hash value of the Solidity code of this account). This field cannot be modified after it is generated, which means that the smart contract code cannot be altered.
+
+- Storage (usually blank)
+  Generally speaking, only the contract account can achieve storage, which stores data of the smart contract.
+
+
+
+
+
+

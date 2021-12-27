@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebSocket Simple Example &mdash; rangers_protocol  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> rangers_protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">users' files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#id1">Proposal Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#proposal-process">Proposal process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-proposal-node">how to apply to become a proposal node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-nodes">Verification Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#verification-process">Verification process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-start.html#how-to-apply-to-become-a-verification-node">How to apply to become a verification node?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">separate sections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="account-system.html">Account System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block.html">Block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nft-protocol.html">NFT Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constract.html">Smart Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-socket-interface-call-user-manual.html">websocket Interface User Manual</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rangers_protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>WebSocket Simple Example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/web-socket-example.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="websocket-simple-example">
+<span id="websocket-example"></span><h1>WebSocket Simple Example<a class="headerlink" href="#websocket-simple-example" title="Permalink to this headline"></a></h1>
+<div class="section" id="example">
+<h2>example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h2>
+<head>
+    <title>Examples</title>
+    <style type="text/css">
+        #connect-container {
+            width: 400px
+        }
+
+        #connect-container div {
+            padding: 5px;
+        }
+
+        #console-container {
+            margin-left: 15px;
+            width: 400px;
+        }
+
+        #console {
+            border: 1px solid #CCCCCC;
+            border-right-color: #999999;
+            border-bottom-color: #999999;
+            height: 170px;
+            overflow-y: scroll;
+            padding: 5px;
+            width: 100%;
+        }
+
+        #console p {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var ws = null;
+
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('send').disabled = !connected;
+        }
+
+        function connect() {
+            var target = document.getElementById('target').value;
+            ws = new WebSocket(target);
+            ws.onopen = function () {
+                setConnected(true);
+                log('Info: WebSocket connection opened.');
+            };
+            ws.onmessage = function (event) {
+                log('Received: ' + event.data);
+            };
+            ws.onclose = function () {
+                setConnected(false);
+                log('Info: WebSocket connection closed.');
+            };
+        }
+
+        function disconnect() {
+            if (ws != null) {
+                ws.close();
+                ws = null;
+            }
+            setConnected(false);
+        }
+
+        function send() {
+            if (ws != null) {
+                var message = document.getElementById('message').value;
+                log('Sent: ' + message);
+                ws.send(message);
+            } else {
+                alert('WebSocket connection not established, please connect.');
+            }
+        }
+
+        function log(message) {
+            var console = document.getElementById('console');
+            var p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            p.appendChild(document.createTextNode(message));
+            console.appendChild(p);
+            while (console.childNodes.length > 25) {
+                console.removeChild(console.firstChild);
+            }
+            console.scrollTop = console.scrollHeight;
+        }
+    </script>
+</head>
+<body>
+    <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websockets rely on Javascript being enabled. Please enable
+        Javascript and reload this page!</h2></noscript>
+    <div>
+        <div id="connect-container">
+            <div>
+                <input id="target" type="text" size="40" style="width: 350px" value="ws://ws_url"/>
+            </div>
+            <div>
+                <button id="connect" onclick="connect();">Connect</button>
+                <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+            </div>
+            <div>
+                <textarea id="message" style="width: 350px">Here is a message!</textarea>
+            </div>
+            <div>
+                <button id="send" onclick="send();" disabled="disabled">Send message</button>
+            </div>
+        </div>
+        <div id="console-container">
+            <div id="console"></div>
+        </div>
+    </div>
+</body></div>
+<hr class="docutils" />
+<div class="section" id="source-code">
+<h2>source code<a class="headerlink" href="#source-code" title="Permalink to this headline"></a></h2>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Examples<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+            <span class="p">#</span><span class="nn">connect-container</span> <span class="p">{</span>
+                <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+                <span class="k">width</span><span class="p">:</span> <span class="mi">400</span><span class="kt">px</span>
+            <span class="p">}</span>
+
+            <span class="p">#</span><span class="nn">connect-container</span> <span class="nt">div</span> <span class="p">{</span>
+                <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="p">#</span><span class="nn">console-container</span> <span class="p">{</span>
+                <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+                <span class="k">margin-left</span><span class="p">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+                <span class="k">width</span><span class="p">:</span> <span class="mi">400</span><span class="kt">px</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="p">#</span><span class="nn">console</span> <span class="p">{</span>
+                <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#CCCCCC</span><span class="p">;</span>
+                <span class="k">border-right-color</span><span class="p">:</span> <span class="mh">#999999</span><span class="p">;</span>
+                <span class="k">border-bottom-color</span><span class="p">:</span> <span class="mh">#999999</span><span class="p">;</span>
+                <span class="k">height</span><span class="p">:</span> <span class="mi">170</span><span class="kt">px</span><span class="p">;</span>
+                <span class="k">overflow-y</span><span class="p">:</span> <span class="kc">scroll</span><span class="p">;</span>
+                <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+                <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="p">#</span><span class="nn">console</span> <span class="nt">p</span> <span class="p">{</span>
+                <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+            <span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+            <span class="kd">function</span> <span class="nx">setConnected</span><span class="p">(</span><span class="nx">connected</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">).</span><span class="nx">disabled</span> <span class="o">=</span> <span class="nx">connected</span><span class="p">;</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;disconnect&#39;</span><span class="p">).</span><span class="nx">disabled</span> <span class="o">=</span> <span class="o">!</span><span class="nx">connected</span><span class="p">;</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;send&#39;</span><span class="p">).</span><span class="nx">disabled</span> <span class="o">=</span> <span class="o">!</span><span class="nx">connected</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="kd">function</span> <span class="nx">connect</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+                <span class="nx">ws</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+                <span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">setConnected</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Info: WebSocket connection opened.&#39;</span><span class="p">);</span>
+                <span class="p">};</span>
+                <span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Received: &#39;</span> <span class="o">+</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+                <span class="p">};</span>
+                <span class="nx">ws</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">setConnected</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Info: WebSocket connection closed.&#39;</span><span class="p">);</span>
+                <span class="p">};</span>
+            <span class="p">}</span>
+
+            <span class="kd">function</span> <span class="nx">disconnect</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">ws</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">ws</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+                    <span class="nx">ws</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">setConnected</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="kd">function</span> <span class="nx">send</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">ws</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Sent: &#39;</span> <span class="o">+</span> <span class="nx">message</span><span class="p">);</span>
+                    <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;WebSocket connection not established, please connect.&#39;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="kd">function</span> <span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">console</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;console&#39;</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">);</span>
+                <span class="nx">p</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">wordWrap</span> <span class="o">=</span> <span class="s1">&#39;break-word&#39;</span><span class="p">;</span>
+                <span class="nx">p</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">message</span><span class="p">));</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+                <span class="k">while</span> <span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">25</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">console</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">noscript</span><span class="p">&gt;&lt;</span><span class="nt">h2</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ff0000&quot;</span><span class="p">&gt;</span>Seems your browser doesn&#39;t support Javascript! Websockets rely on Javascript being enabled. Please enable
+        Javascript and reload this page!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;connect-container&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;target&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;40&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 350px&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;ws://47.98.212.107&quot;</span><span class="p">/&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;connect&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;connect();&quot;</span><span class="p">&gt;</span>Connect<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;disconnect&quot;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&quot;disabled&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;disconnect();&quot;</span><span class="p">&gt;</span>Disconnect<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;message&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 350px&quot;</span><span class="p">&gt;</span>Here is a message!<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;send&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;send();&quot;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&quot;disabled&quot;</span><span class="p">&gt;</span>Send message<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;console-container&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;console&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, rangers_protocol technical.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

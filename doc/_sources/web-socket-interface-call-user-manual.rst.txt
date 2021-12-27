@@ -1,0 +1,128 @@
+.. _websocket_interface_user_manual:
+
+===============================
+Rangers WebSocket User Manual
+===============================
+
+``The app communicates with Rangers Protocol by adopting the method of WebSocket connection``
+
+For a WebSocket usage example, please refer to: [#f1]_
+
+.. _rangers_ws_protocol:
+
+Agreement
+===========
+
+ws domain name
+----------------
+- Please refer to :ref:`network part <network>` - The following is referred to as ws_url
+
+
+The app sends data in JSON format
+------------------------------------
+
+.. code-block:: json
+
+        {
+            "socketRequestId":"1234",
+            "source":"0x123456",
+            "target":"0x324233",
+            "type":102,
+            "time":"14564634346",
+            "data":"abc",
+            "hash":"0xdfafdgare",
+            "sign":"0xdagfgniofahn",
+            "nonce":15
+        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+``Field Explanation :``
+
+- *socketRequestId* Message ID, designated by the App, the return of the user identified message
+- *source* RangersProtocol account address
+- *target* Account address or contract address
+- *type* Message type (required)
+- *time* Timestamp (required)
+- *data* Message data
+- *hash* Message hash(required)
+- *sign* Signature of the message (required)
+- *nonce* Used to mark App messages, each message nonce must be added by one (mandatory)
+
+Back in JSON format
+----------------------
+
+.. code-block:: json
+
+        {
+            "id":"1234",
+            "status":"0",
+            "version":"1.0",
+            "data":"abcd"
+        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+``Field Explanation :``
+
+- *id* SocketRequestId that sends the message
+- *status* Back to status code 0 for failure and 1 for success
+- *version* Version number Current reserved data
+- *data* Back to data
+
+transfer
+==========
+
+Access to the link
+--------------------
+ws://ws_url/api/writer/rangers
+
+parameters
+-------------
+1. ``type`` - number - Type 100
+2. ``extraData`` - json - Transfer Information (optional)
+        - ``coin`` json,Currency of transfer as follows:{"ETH":"3.26","NEO":"565"}
+        - ``ft`` json,The ft of transfer is as follows:{"ftId1":"2.56","ftId2":"5.99"}
+        - ``nft`` json,the NFT of the transfer is as follows:[{"setId":setId, "id":id}]
+
+Back
+------
+- ``data`` - string - Transfer Execution Result
+
+example
+---------
+
+.. code-block:: json
+
+        {
+            "source":"0x0b7467fe7225e8adcb6b5779d68c20fceaa58d54",
+            "target":"0xf677e4051eeff7a60598cc6419b982cdeef60b01",
+            "type":100,
+            "time":"1556076659050692000",
+            "extraData":{"coin":{"ETH":"3.26","NEO":"565"},"ft":{"game1-ftId1":"2.56","game2-ftId2":"5.99"},"nft":[{"setId":"suit1","id":"xizhuang"},{"setId":"gun","id":"rifle"},]},
+            "hash":"0x4689e73a1f051f70775a6d58cfacca78680f6421b6cf0dcacba6ab203a720fc1",
+            "socketRequestId":"12140"
+        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+Back to data
+^^^^^^^^^^^^^^
+
+.. code-block:: json
+
+        {
+           "id":"12137",
+           "status":"0",
+           "version":"1.0",
+           "data":{
+                "coin":{"ETH":"0.3661","NEO":"9.67"},
+                "ft":{"game1-ftId1":"1.23","game2-ftId2":"793.2"},
+                "nft":[{"setId":"suit1","id":"xizhuang"},{"setId":"gun","id":"rifle"}
+            }
+        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+.. rubric:: The appendix
+.. [#f1]  :ref:`websocket simple example <websocket_example>`

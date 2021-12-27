@@ -1,0 +1,57 @@
+
+.. _proposal_node:
+
+---------------------------------------------
+
+===============
+Proposal Node
+===============
+
+
+The obligations of the proposal node
+======================================
+
+The obligations of the proposal node are as follows：
+ ::
+- Package transactions, generate candidate blocks, and submit to the corresponding verification group
+- To become a proposal node, it needs to stake 1,250 RPG to be qualified as a candidate proposal node. The stake amount will be adjusted according to the development of Rangers Protocol and the improvement of the governance mechanism. It should be noted that RPG cannot be unlocked from staking to block generation and reward allocation. It can only be unlocked until the release of node reward is completed in the designated time. There is only one stake for each node in each allocation period of block generation.
+
+
+Rewards of proposal node
+============================
+
+The rewards of the proposal node are as follows:
+ ::
+- After block generation, the proposal group will obtain 35% of total block rewards;
+- The proposal node of block generation will obtain 10.5% of the proposal group’s rewards separately.
+- All the nodes within the proposal group (including block generation node) will share 24.5% of the rest rewards according to the proportion of node staking.
+|
+	The calculation formula is as follow:
+
+    .. math::
+
+            Q_{proposal node for block generation } &= Rangers Protocol current block reward\times\frac{3}{4}+\frac{stake amount of this node }{total stake amount of proposal nodes} \\
+            &\times RangerProtocol current block reward\times\frac{1}{2}
+
+            Q_{other proposal node}=\frac{stake amount of this node}{total stake amount of proposal nodes}\times Rangers Protocol current block reward\times\frac{1}{2}
+
+===================
+Proposal process
+===================
+
+The proposal node will regularly calculate the VRF value based on the information of the block with the highest quantity and the staking information of all nodes. If VRF value meets the threshold, it comes into the proposal process:
+
+- transaction packaging
+- transaction implementation
+- generate the status merkleTree root hash after executing the transaction
+- select the verification group according to VRF
+- calculate rewards of block generation
+- generate the candidate blocks, including the following information: transaction hash table, transaction of merkleTree root hash, status merkleTree root hash, timestamp, height, the last Hash, proposal node id, the verification group id, VRF value, priority weighting, block hash,etc
+- submit the candidate blocks to the verification group
+
+
+=======================================
+how to apply to become a proposal node
+=======================================
+
+For the application of becoming a proposal node, please refer to: :ref:`the specific process of the application of becoming a proposal node <rangers_process_of_become_a_verification_node>`
